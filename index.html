@@ -29,12 +29,30 @@
         }
         .contact-btn:hover { background-color: #0077ed; }
         hr { border: 0; border-top: 1px solid #d2d2d7; margin: 40px 0; }
-        .footer-links {
+        
+        /* Two Apps Layout Grid */
+        .legal-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             gap: 20px;
+            margin-top: 20px;
+        }
+        .app-column {
+            flex: 1;
+        }
+        .app-column h3 {
+            color: #1d1d1f;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .footer-links {
             list-style: none;
             padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 8px;
         }
         .footer-links a {
             color: #0066cc;
@@ -53,13 +71,29 @@
 
     <hr>
 
-    <ul class="footer-links">
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="Terms_Conditions.html">Terms & Conditions</a></li>
-    </ul>
+    <!-- Two Apps Legal Sections -->
+    <div class="legal-container">
+        <!-- Free Games for Flights -->
+        <div class="app-column">
+            <h3>Free Games for Flights</h3>
+            <ul class="footer-links">
+                <li><a href="Privacy_FGFF.html">Privacy Policy</a></li>
+                <li><a href="Terms_Conditions_FGFF.html">Terms & Conditions</a></li>
+            </ul>
+        </div>
+
+        <!-- Barcode Brawl -->
+        <div class="app-column">
+            <h3>Barcode Brawl</h3>
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="Terms_Conditions.html">Terms & Conditions</a></li>
+            </ul>
+        </div>
+    </div>
  
     <p style="font-size: 12px; color: #a1a1a6; margin-top: 50px;">
-        &copy; 2026 Free Game For Flights / Project Shario. All rights reserved.
+        &copy; 2026 Project Shario. All rights reserved.
     </p>
 
 </body>
