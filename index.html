@@ -41,27 +41,11 @@ title: Project Shario — Home
         </div>
       </div>
 
-      <!-- Full-bleed carousel across the entire viewport (before contact support) -->
-      <section class="full-bleed-carousel" aria-label="Game icons carousel">
+      <!-- Full-bleed carousel across the entire viewport -->
+      <section class="full-bleed-carousel full-bleed" aria-label="Game icons carousel">
         <div class="carousel full-width" id="fullCarousel">
           <div class="carousel-track" id="carouselTrack">
-            <!-- Images expected at /assets/game-icons/1.png ... 4.png -->
-            <div class="carousel-item">
-              <img src="/assets/game-icons/1.png" alt="Game icon 1">
-              <div class="fallback">🎲</div>
-            </div>
-            <div class="carousel-item">
-              <img src="/assets/game-icons/2.png" alt="Game icon 2">
-              <div class="fallback">⛏️</div>
-            </div>
-            <div class="carousel-item">
-              <img src="/assets/game-icons/3.png" alt="Game icon 3">
-              <div class="fallback">🚀</div>
-            </div>
-            <div class="carousel-item">
-              <img src="/assets/game-icons/4.png" alt="Game icon 4">
-              <div class="fallback">❄️</div>
-            </div>
+            <!-- Items will be generated dynamically by JavaScript -->
           </div>
         </div>
       </section>
@@ -132,12 +116,14 @@ title: Project Shario — Home
     .cta{display:inline-block;margin-top:12px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:600}
 
     /* Full-bleed carousel trick */
-    .full-bleed-carousel{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;padding:22px 0;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-sizing:border-box}
+    .full-bleed-carousel{padding:22px 0;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02));}
     .full-bleed-carousel .carousel{max-width:1400px;margin:0 auto}
+    .full-width{max-width:1400px;margin:0 auto}
 
     .carousel-track{display:flex;gap:14px;overflow:hidden;align-items:center;padding:8px 12px}
-    .carousel-item{min-width:120px;flex:0 0 120px;height:120px;border-radius:16px;background:#ffffff12;display:flex;align-items:center;justify-content:center;position:relative}
-    .carousel-item img{max-width:104px;max-height:104px;border-radius:12px;display:block}
+    /* responsive sizing: items grow/shrink with viewport while keeping a reasonable min/max */
+    .carousel-item{min-width:clamp(100px, 14vw, 200px);flex:0 0 clamp(100px, 14vw, 200px);height:clamp(100px, 14vw, 200px);border-radius:16px;background:#ffffff12;display:flex;align-items:center;justify-content:center;position:relative}
+    .carousel-item img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
     .carousel-item .fallback{position:absolute;font-size:40px}
 
     /* Games grid */
@@ -162,11 +148,66 @@ title: Project Shario — Home
       let isPaused = false;
       if(!track) return;
 
-      // clone items to create continuous scroll
-      const items = Array.from(track.children);
-      items.forEach(node => track.appendChild(node.cloneNode(true)));
+      // List of image files currently in the repo root. Spaces/characters are encoded when used.
+      const carouselImages = [
+        '/GameIcon_Aracde_Minesweeper_Minesweeper_Icon.png',
+        '/GameIcon_Arcade_AnimalTower_Animal_Tower_Icon-clean.png',
+        '/GameIcon_Arcade_CandySnatch_Snatch_Asset_Image.png',
+        '/GameIcon_Arcade_CheckersTakeover_sprite_2.png',
+        '/GameIcon_Arcade_Chess_Chess_Icon.png',
+        '/GameIcon_Arcade_ClawMachine_Gemini_Generated_Image_almulbalmulbalmu-removebg-preview.png',
+        '/GameIcon_Arcade_ColorPop_sprite_2.png',
+        '/GameIcon_Arcade_ColorWars_Paing_Icon.png',
+        '/GameIcon_Arcade_CrackTheSafe_sprite_1.png',
+        '/GameIcon_Arcade_FindMyIcon_sprite_2.png',
+        '/GameIcon_Arcade_HelpThePilot_sprite_4.png',
+        '/GameIcon_Arcade_Matching4_sprite_4.png',
+        '/GameIcon_Arcade_MemoryFlash_sprite_2.png',
+        '/GameIcon_Arcade_NumberDash_sprite_5.png',
+        '/GameIcon_Arcade_RockDig_sprite_1.png',
+        '/GameIcon_Arcade_RocketManJump_sprite_5.png',
+        '/GameIcon_Arcade_SimDoctor_SimDoctor.png',
+        '/GameIcon_Arcade_SnowBallWars_GameIcon_SnowBallWars.png',
+        '/GameIcon_Arcade_TapRacer_Tap_Racer_Icon.png',
+        '/GameIcon_Arcade_TowerStack_sprite_3.png',
+        '/GameIcon_Arcade_WordRacer_sprite_3.png',
+        '/GameIcon_Cards_Big2_Gemini_Generated_Image_tp0fhjtp0fhjtp0f (1).png',
+        '/GameIcon_Cards_CardAttack_sprite_3.png',
+        '/GameIcon_Cards_Cheat_sprite_4.png',
+        '/GameIcon_Cards_MemoryCards_sprite_2.png',
+        '/GameIcon_Cards_MiniSolitaire_Solitaire_Icon.png',
+        '/GameIcon_Cards_Peace_Peace_Icon.png',
+        '/GameIcon_Cards_Spades_Spades.png',
+        '/GameIcon_Cards_Speed_sprite_1.png',
+        '/GameIcon_Cards_Tractor_Tractor_Card.png',
+        '/GameIcon_Puzzle_BubbleT_sprite_1 (2).png',
+        '/GameIcon_Puzzle_PuzzlePanik_sprite_1 (3).png',
+        '/GameIcon_Puzzle_Sudoku_Gemini_Generated_Image_g66epig66epig66e.png',
+        '/GameIcon_Puzzle_WordWorth_WordWorth_Puzzle-clean.png',
+      ];
 
-      // fallback if images fail to load (show emoji)
+      // Build carousel items from list
+      function buildItems(){
+        track.innerHTML = '';
+        carouselImages.forEach((name, idx) => {
+          const item = document.createElement('div');
+          item.className = 'carousel-item';
+          const img = document.createElement('img');
+          // encodeURI to handle spaces and special chars
+          img.src = encodeURI(name);
+          img.alt = 'Game icon ' + (idx+1);
+          const fallback = document.createElement('div');
+          fallback.className = 'fallback';
+          fallback.textContent = '🎮';
+          item.appendChild(img);
+          item.appendChild(fallback);
+          track.appendChild(item);
+        });
+      }
+
+      buildItems();
+
+      // setup image fallbacks
       function setupFallbacks(){
         const allItems = track.querySelectorAll('.carousel-item');
         allItems.forEach(item => {
@@ -175,18 +216,24 @@ title: Project Shario — Home
           if(!img) return;
           img.addEventListener('error', ()=>{ img.style.display='none'; if(fallback) fallback.style.display='block'; });
           img.addEventListener('load', ()=>{ if(fallback) fallback.style.display='none'; });
-          // if already broken or missing
-          if(!img.complete || img.naturalWidth === 0){ img.style.display='none'; if(fallback) fallback.style.display='block'; }
+          if(img.complete && img.naturalWidth === 0){ img.style.display='none'; if(fallback) fallback.style.display='block'; }
         });
       }
       setupFallbacks();
+
+      // clone items to create continuous scroll effect
+      function duplicateTrack(){
+        const items = Array.from(track.children);
+        items.forEach(node => track.appendChild(node.cloneNode(true)));
+        setupFallbacks();
+      }
+      duplicateTrack();
 
       // scrolling behaviour
       let offset = 0;
       function step(){
         if(!isPaused){
           offset += 1.6; // autoplay speed
-          // reset when we've scrolled half (since we duplicated items)
           if(offset >= track.scrollWidth / 2){ offset = 0; track.scrollLeft = 0; }
           track.scrollLeft = offset;
         }
@@ -195,8 +242,10 @@ title: Project Shario — Home
       requestAnimationFrame(step);
 
       // pause on hover for accessibility
-      carousel.addEventListener('mouseenter', ()=>{ isPaused = true });
-      carousel.addEventListener('mouseleave', ()=>{ isPaused = false });
+      if(carousel){
+        carousel.addEventListener('mouseenter', ()=>{ isPaused = true });
+        carousel.addEventListener('mouseleave', ()=>{ isPaused = false });
+      }
 
       // observe for dynamic changes (if you later add real images)
       const observer = new MutationObserver(()=>{ setupFallbacks(); });
