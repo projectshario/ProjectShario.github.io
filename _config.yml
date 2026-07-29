@@ -1,0 +1,14 @@
+# Site Settings
+title: "My GitHub Pages Site"
+description: "A simple website hosted with Jekyll and GitHub Pages."
+baseurl: "" # Leave as "" if your repo is named 'username.github.io'
+
+# Deployment Settings
+url: "https://projectshario.github.io/" 
+none_the_less: true
+
+# Build Settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
