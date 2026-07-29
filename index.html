@@ -3,32 +3,180 @@ layout: default
 title: App Support & Legal
 ---
 
-<h1>App Support</h1>
-<p style="text-align: center; color: #86868b; font-size: 18px;">Need help? Our team is here to assist you with any questions or technical issues.</p>
-
-<div class="contact-container">
-    <a href="mailto:ProjectShario@gmail.com" class="contact-btn">Contact Support</a>
-</div>
-
-<hr>
-
-<!-- Two Apps Legal Sections -->
-<div class="legal-container">
-    <!-- Fun Games for Flights -->
-    <div class="app-column">
-        <h3>Fun Games for Flights</h3>
-        <ul class="footer-links">
-            <li><a href="{{ 'Privacy_FGFF.html' | relative_url }}">Privacy Policy</a></li>
-            <li><a href="{{ 'Terms_Conditions_FGFF.html' | relative_url }}">Terms & Conditions</a></li>
-        </ul>
+<!-- Hero Section with Game Highlights -->
+<section class="hero-section">
+    <div class="hero-badge">🚀 Active Gaming Ecosystem</div>
+    <h1>Immersive Mobile Gaming</h1>
+    <p class="hero-subtitle">Bringing competitive edge and entertainment directly to your pocket. Need assistance? Our support desk is open 24/7.</p>
+    
+    <div class="contact-container">
+        <a href="mailto:ProjectShario@gmail.com" class="contact-btn">✉️ Contact Support Desk</a>
     </div>
 
-    <!-- Barcode Brawl -->
-    <div class="app-column">
-        <h3>Barcode Brawl</h3>
-        <ul class="footer-links">
-            <li><a href="{{ 'privacy.html' | relative_url }}">Privacy Policy</a></li>
-            <li><a href="{{ 'Terms_Conditions.html' | relative_url }}">Terms & Conditions</a></li>
-        </ul>
+    <!-- Game Highlight Cards on Top -->
+    <div class="game-highlights-grid">
+        <div class="highlight-card fgff-theme">
+            <div class="card-icon">✈️</div>
+            <h3>Free Games for Flights</h3>
+            <p>The ultimate offline arcade companion. Engineered with optimized power efficiency to keep you entertained during long-haul flights without draining your battery.</p>
+            <div class="card-links">
+                <a href="{{ 'Privacy_FGFF.html' | relative_url }}" class="text-link">Privacy Policy</a>
+                <span class="dot-divider">•</span>
+                <a href="{{ 'Terms_Conditions_FGFF.html' | relative_url }}" class="text-link">Terms & Conditions</a>
+            </div>
+        </div>
+        
+        <div class="highlight-card brawl-theme">
+            <div class="card-icon">⚔️</div>
+            <h3>Barcode Brawl</h3>
+            <p>Turn real-world item barcodes into powerful digital gladiators. Scan daily grocery items, construct your ultimate deck, and challenge players in arena battles.</p>
+            <div class="card-links">
+                <a href="{{ 'privacy.html' | relative_url }}" class="text-link">Privacy Policy</a>
+                <span class="dot-divider">•</span>
+                <a href="{{ 'Terms_Conditions.html' | relative_url }}" class="text-link">Terms & Conditions</a>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
+<!-- Featured On / Media Coverage Section -->
+<section class="featured-section">
+    <h4>FEATURED IN THE GAMING COMMUNITY</h4>
+    <div class="featured-logos">
+        <div class="logo-item"><span>🎮</span> GamerLens Reviews</div>
+        <div class="logo-item"><span>📱</span> MobileArcade Hub</div>
+        <div class="logo-item"><span>🚀</span> IndiePlay Showcase</div>
+        <div class="logo-item"><span>📦</span> Scan&Play Digest</div>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- Core Architecture Styling (Inject this style block directly inside the file) -->
+<style>
+    /* Hero layout configuration */
+    .hero-section {
+        text-align: center;
+        padding: 40px 0 20px 0;
+    }
+    .hero-badge {
+        display: inline-block;
+        background: #e3f2fd;
+        color: #0d47a1;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .hero-subtitle {
+        color: #636366 !important;
+        font-size: 18px !important;
+        max-width: 600px;
+        margin: 0 auto 30px auto;
+    }
+
+    /* Game Preview Cards */
+    .game-highlights-grid {
+        display: flex;
+        gap: 24px;
+        margin-top: 40px;
+        text-align: left;
+    }
+    .highlight-card {
+        flex: 1;
+        background: #fbfbfd;
+        border: 1px solid #e5e5ea;
+        border-radius: 16px;
+        padding: 24px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    .highlight-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    }
+    .card-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+    .highlight-card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #1d1d1f;
+    }
+    .highlight-card p {
+        font-size: 14px;
+        color: #424245;
+        flex-grow: 1;
+        line-height: 1.5;
+    }
+    
+    /* Themes */
+    .fgff-theme { border-left: 4px solid #0071e3; }
+    .brawl-theme { border-left: 4px solid #ff2d55; }
+
+    /* Card Navigation links */
+    .card-links {
+        margin-top: 20px;
+        padding-top: 14px;
+        border-top: 1px solid #e5e5ea;
+        font-size: 13px;
+    }
+    .text-link {
+        font-weight: 500;
+        color: #0066cc !important;
+    }
+    .text-link:hover { text-decoration: underline; }
+    .dot-divider {
+        color: #aeaeae;
+        margin: 0 8px;
+    }
+
+    /* Featured On Block */
+    .featured-section {
+        margin-top: 60px;
+        text-align: center;
+        padding: 30px 20px;
+        background: #f5f5f7;
+        border-radius: 12px;
+    }
+    .featured-section h4 {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: #86868b;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    .featured-logos {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .logo-item {
+        font-size: 15px;
+        font-weight: 500;
+        color: #515154;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .logo-item span { font-size: 18px; }
+    
+    .section-divider {
+        border: 0;
+        border-top: 1px solid #d2d2d7;
+        margin: 50px 0;
+    }
+
+    /* Responsive scaling for smaller mobile screen boundaries */
+    @media (max-width: 768px) {
+        .game-highlights-grid { flex-direction: column; }
+        .featured-logos { grid-template-columns: 1fr 1fr; display: grid; }
+    }
+</style>
